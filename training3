@@ -1,0 +1,11 @@
+http:
+  routers:
+    training3:
+      rule: "Host(`training3.safewalk.technology`)"
+      service: "training2"
+      tls: {}
+  services:
+    training3:
+     loadBalancer:
+       servers:
+               - url: 'https://training3.safewalk.technology'
