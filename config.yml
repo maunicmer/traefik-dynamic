@@ -1,0 +1,26 @@
+http:
+  routers:
+    traefik:
+      rule: "Host(`traefik.safewalk.technology`)"
+      service: "api@internal"
+      tls:
+        domains:
+          - main: "docker.localhost"
+            sans:
+              - "*.docker.localhost"
+          - main: "domain.local"
+            sans:
+              - "*.domain.local"
+    xsoar:
+      rule: "Host(`training1.safewalk.technology`)"
+      service: "xsoar"
+      tls: {}
+  services:
+    xsoar:
+     loadBalancer:
+       servers:
+               - url: 'https://training1.safewalk.technology:8443'
+tls:
+  certificates:
+    - certFile: "/etc/certs/fullchain.pem"
+      keyFile: "/etc/certs/private.key"
